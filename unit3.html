@@ -403,6 +403,276 @@
       }catch{ setFeedback("تعذّرت الاستعادة.", false); }
     }
 
+
+
+
+/////////////////////////////////////////////////////////////////////
+
+ 
+  // إعدادات الامتحان
+  const examConfig = {
+    defaultMinutes: 15, // زمن الامتحان الافتراضي (يمكن تغييره)
+    to20: true
+  };
+
+  // حالة الامتحان
+  const examState = {
+    active: false,
+    total: 20,
+    index: 0,
+    correct: 0,
+    wrong: 0,
+    topic: "mix",
+    source: "book", // أو free
+    log: [],
+    timer: null,
+    remainingSec: examConfig.defaultMinutes * 60,
+    balancedOrder: [] // توزيع متوازن عبر الصفحات/الموضوعات
+  };
+
+  // توليد قائمة متوازنة للأسئلة عبر الصفحات 54–61
+  function buildBalancedOrder(total, source, topic) {
+    const pagesKeys = ["54","55","56","57","58","59","60","61"];
+    const bucketCount = pagesKeys.length;
+    const perBucket = Math.floor(total / bucketCount);
+    const remainder = total % bucketCount;
+
+    const order = [];
+    pagesKeys.forEach((p, idx) => {
+      const count = perBucket + (idx < remainder ? 1 : 0);
+      for (let i = 0; i < count; i++) {
+        order.push({ page: p, topic, source });
+      }
+    });
+    // خلط خفيف
+    for (let i = order.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [order[i], order[j]] = [order[j], order[i]];
+    }
+    return order;
+  }
+
+  // بدء الامتحان
+  function startExamUI() {
+    const total = Number(document.getElementById("exam-questions").value);
+    const source = document.getElementById("exam-source")?.value || "book";
+    const topic  = document.getElementById("exam-topic")?.value || "mix";
+    const minutes = examConfig.defaultMinutes;
+
+    examState.active = true;
+    examState.total = total;
+    examState.index = 0;
+    examState.correct = 0;
+    examState.wrong = 0;
+    examState.topic = topic;
+    examState.source = source;
+    examState.log = [];
+    examState.remainingSec = minutes * 60;
+    examState.balancedOrder = buildBalancedOrder(total, source, topic);
+
+    setFeedback(`بدأ الامتحان (${state.settings.arabic?toArabicDigits(total):String(total)} سؤال). الزمن: ${state.settings.arabic?toArabicDigits(minutes):String(minutes)} دقيقة. بالتوفيق!`, true);
+    document.getElementById("exam-report").hidden = true;
+
+    // قفل الإعدادات أثناء الامتحان
+    lockExamControls(true);
+
+    // بدء المؤقّت
+    startTimer();
+
+    // توليد أول سؤال
+    loadNextExamQuestion();
+  }
+
+  function lockExamControls(lock) {
+    ["exam-questions","exam-source","exam-topic"].forEach(id=>{
+      const el = document.getElementById(id);
+      if(el) el.disabled = lock;
+    });
+    const startBtn = document.getElementById("exam-start");
+    if(startBtn) startBtn.disabled = lock;
+  }
+
+  function startTimer() {
+    const box = document.getElementById("exam-report");
+    if (examState.timer) clearInterval(examState.timer);
+    updateTimerUI();
+    examState.timer = setInterval(() => {
+      examState.remainingSec--;
+      updateTimerUI();
+      if (examState.remainingSec <= 0) {
+        clearInterval(examState.timer);
+        examState.timer = null;
+        finishExam("انتهى الوقت.");
+      }
+    }, 1000);
+  }
+
+  function updateTimerUI() {
+    const minutes = Math.floor(examState.remainingSec / 60);
+    const seconds = examState.remainingSec % 60;
+    const t = `الوقت المتبقي: ${state.settings.arabic?toArabicDigits(minutes):minutes}:${state.settings.arabic?toArabicDigits(seconds.toString().padStart(2,"0")):seconds.toString().padStart(2,"0")}`;
+    // نعرض المؤقت أعلى التغذية الراجعة لتذكير الطالب
+    const fb = document.getElementById("feedback");
+    if (fb && examState.active) {
+      fb.textContent = `${t}`;
+      fb.className = "feedback ok";
+    }
+  }
+
+  // توليد سؤال جديد ضمن الامتحان
+  function loadNextExamQuestion() {
+    if (!examState.active) return;
+    if (examState.index >= examState.total) { finishExam(); return; }
+
+    const slot = examState.balancedOrder[examState.index];
+    const mode = slot.source === "book" ? "book" : "free";
+
+    // نستخدم نفس واجهة التوليد في المنصة
+    if (mode === "book") {
+      // اختيار نشاط من صفحات الكتاب — إن لم تكن لديك وظيفة جاهزة، سنولد بديل حر
+      const page = slot.page;
+      const list = pages[page] || [];
+      const item = list.length ? list[Math.floor(Math.random()*list.length)] : null;
+      let q;
+      if (item) {
+        const built = item.build();
+        q = { text: built.text, answer: built.answer ?? null, steps: built.steps ?? [], hintText: built.hintText ?? "طبّق القاعدة." };
+      } else {
+        q = buildFreeQuestion(examState.topic, "intermediate", "mix");
+      }
+      state.current = q;
+    } else {
+      state.current = buildFreeQuestion(examState.topic, "intermediate", "mix");
+    }
+
+    document.getElementById("problem").textContent = state.current.text;
+    document.getElementById("feedback").textContent = "";
+    document.getElementById("explain").hidden = true;
+    document.getElementById("hint").hidden = true;
+    document.getElementById("answer").value = "";
+  }
+
+  // عند تحقق الإجابة أثناء الامتحان — نُحدّث السجلّ ونتابع
+  function updateExamProgress(ok) {
+    if (!examState.active) return;
+    examState.index++;
+    if (ok) examState.correct++; else examState.wrong++;
+
+    examState.log.push({
+      q: state.current.text,
+      a: state.current.answer != null ? fmtDisplay(state.current.answer,6) : "—",
+      ok
+    });
+
+    if (examState.index < examState.total) {
+      loadNextExamQuestion();
+    } else {
+      finishExam();
+    }
+  }
+
+  // إنهاء الامتحان
+  function finishExam(reason=null) {
+    examState.active = false;
+    if (examState.timer) { clearInterval(examState.timer); examState.timer = null; }
+
+    // فتح الإعدادات
+    lockExamControls(false);
+
+    renderExamFinalReport(reason);
+  }
+
+  // ربط التصحيح بالدالة العامة
+  const _originalCheckAnswer = typeof checkAnswer === "function" ? checkAnswer : null;
+  // نستبدل checkAnswer ليتكامل مع الامتحان
+  window.checkAnswer = function() {
+    if (!state.current) { setFeedback("أنشئ سؤالًا أولًا.", false); return; }
+    const raw = document.getElementById("answer").value.trim();
+    const user = Number(toWesternDigits(raw).replace(",","."));
+    state.attempts++;
+
+    if (state.current.answer == null || !isFinite(user)) {
+      state.wrong++;
+      setFeedback("هذا سؤال تفسيري/قراءة/فاصلة. أدخل قيمة عددية للأسئلة الحسابية.", false);
+      showHint();
+      updateSummary();
+      addRecent(false, raw);
+      updateExamProgress(false);
+      return;
+    }
+
+    const ok = Math.abs(Number(user) - Number(state.current.answer)) <= 1e-6;
+    if (ok) {
+      state.correct++;
+      setFeedback(`صحيح: ${fmtDisplay(state.current.answer,6)}.`, true);
+      document.getElementById("hint").hidden = true;
+    } else {
+      state.wrong++;
+      setFeedback("غير صحيح. راجع موضع الفاصلة/الخطوات.", false);
+      showHint();
+    }
+    updateSummary();
+    addRecent(ok, raw);
+    updateExamProgress(ok);
+  };
+
+  // تقرير نهائي
+  function renderExamFinalReport(reason) {
+    const total = examState.total;
+    const c = examState.correct;
+    const w = examState.wrong;
+    const percent = total > 0 ? Math.round((c/total)*100) : 0;
+    const score20 = Math.round((c/total)*20);
+    const note = c >= w ? "أداء جيّد. يظهر فهم لقواعد الفاصلة والضرب/القسمة." : "يحتاج مراجعة قاعدة نقل/إعادة الفاصلة والتقدير.";
+
+    const box = document.getElementById("exam-report");
+    box.innerHTML = `
+      <strong>تقرير الامتحان الشامل</strong>
+      ${reason ? `<div class="tiny">سبب الإنهاء: ${reason}</div>` : ""}
+      <ul style="text-align:start; margin-top:8px;">
+        <li>عدد الأسئلة: ${state.settings.arabic?toArabicDigits(total):String(total)}</li>
+        <li>الصحيحة: ${state.settings.arabic?toArabicDigits(c):String(c)}</li>
+        <li>الخاطئة: ${state.settings.arabic?toArabicDigits(w):String(w)}</li>
+        <li>النسبة: ${state.settings.arabic?toArabicDigits(percent):String(percent)}%</li>
+        <li>الدرجة النهائية: ${state.settings.arabic?toArabicDigits(score20):String(score20)} / ٢٠</li>
+        <li>ملاحظة: ${note}</li>
+      </ul>
+      <details style="text-align:start;">
+        <summary>سجلّ الأسئلة</summary>
+        <ol>${examState.log.map(i=>`<li>${i.q} — الحل: ${i.a} — ${i.ok?'✅':'❌'}</li>`).join("")}</ol>
+      </details>
+    `;
+    box.hidden = false;
+    speak(`انتهى الامتحان. حصلت على ${state.settings.arabic?toArabicDigits(score20):String(score20)} من ٢٠.`);
+  }
+
+  // زر الإنهاء اليدوي
+  function stopExamUI() {
+    if (!examState.active) { setFeedback("لا يوجد امتحان نشط.", false); return; }
+    finishExam("تم الإنهاء يدويًا.");
+  }
+
+  // ربط الأزرار (إن لم تكن مربوطة مسبقًا)
+  (function bindExamButtons(){
+    const startBtn = document.getElementById("exam-start");
+    const stopBtn  = document.getElementById("exam-stop");
+    if (startBtn) startBtn.onclick = startExamUI;
+    if (stopBtn)  stopBtn.onclick  = stopExamUI;
+  })();
+ 
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
     // امتحان
     function examStart(){
       const total=Number(document.getElementById("exam-questions").value);
