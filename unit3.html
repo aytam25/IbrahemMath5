@@ -7,7 +7,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
 
-
+#calc-input { /*الة حاسبة */
+  border:2px solid #eaeef3;
+  border-radius:12px;
+}
+#calc-result {
+  margin-top:10px;
+  font-weight:bold;
+  font-size:18px;
+}
 /* إعداد العرض للجوال */
 @media (max-width: 768px) {
   body {
@@ -117,6 +125,7 @@
 
   <main>
     <div class="grid">
+
       <!-- لوحة التمرين -->
       <section class="card">
         <h2>تمرين تفاعلي</h2>
@@ -211,7 +220,15 @@
           <div id="exam-report" class="hint" hidden></div>
         </div>
       </section>
-
+<!-- آلة حاسبة خفيفة -->
+<section class="card">
+  <h2>🧮 آلة حاسبة خفيفة</h2>
+  <div class="row">
+    <input id="calc-input" type="text" placeholder="أدخل العملية مثل 2+3*4" style="flex:1; font-size:18px; padding:10px;">
+    <button class="btn-primary" onclick="calcEvaluate()">احسب</button>
+  </div>
+  <p id="calc-result" class="feedback"></p>
+</section>
       <!-- ملخص الأداء + مراجعة + دروس -->
       <aside class="card">
         <h2>ملخص الأداء</h2>
@@ -237,6 +254,21 @@
   </main>
 
   <script>
+// ألة حاسبة // أدوات الأرقام والتهيئة
+    function calcEvaluate(){
+  const expr = document.getElementById("calc-input").value;
+  try {
+    // تحويل الأرقام العربية إلى غربية قبل الحساب
+    const western = toWesternDigits(expr);
+    const result = eval(western); // ⚠️ eval يستخدم فقط هنا لحساب بسيط
+    const display = state.settings.arabic ? toArabicDigits(result.toString()) : result;
+    document.getElementById("calc-result").textContent = "النتيجة: " + display;
+    document.getElementById("calc-result").className = "feedback ok";
+  } catch(e){
+    document.getElementById("calc-result").textContent = "خطأ في الإدخال";
+    document.getElementById("calc-result").className = "feedback no";
+  }
+}
     // أدوات الأرقام والتهيئة
     const arabicDigits = "٠١٢٣٤٥٦٧٨٩";
     const westernDigits = "0123456789";
