@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>النظام النهائي — الوحدة ٣ (صفحات ٥٤–٦١) | منصة تفاعلية محسّنة</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{
+      --bg:#f6f9ff; --primary:#2E86DE; --secondary:#10ac84; --accent:#ff9f43; --danger:#ee5253;
+      --text:#1f2d3d; --card:#ffffff; --muted:#7a8aa0; --shadow:0 10px 24px rgba(0,0,0,0.08); --radius:16px;
+    }
+    html,body{background:var(--bg); color:var(--text); font-family:"Cairo", Tahoma, Arial; margin:0;}
+    header{background:linear-gradient(135deg,var(--primary),#6c5ce7); color:#fff; padding:18px 20px; box-shadow:var(--shadow);}
+    header .title{display:flex; align-items:center; gap:14px; flex-wrap:wrap;}
+    header .badge{background:rgba(255,255,255,0.18); padding:6px 12px; border-radius:999px; font-size:14px;}
+    main{max-width:1200px; margin:20px auto; padding:10px;}
+    .grid{display:grid; grid-template-columns:1.2fr 0.8fr; gap:18px;}
+    .card{background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:16px;}
+    h2{margin:8px 0 14px 0; font-size:22px;}
+    .controls{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:12px;}
+    select,button,input[type="text"]{
+      background:#fff; border:2px solid #eaeef3; border-radius:12px; padding:10px; font-size:16px; color:var(--text);
+      transition:all .2s ease;
+    }
+    select:focus,input:focus{outline:none; border-color:var(--primary); box-shadow:0 0 0 3px rgba(46,134,222,.15);}
+    button{cursor:pointer; font-weight:700;}
+    .btn-primary{background:var(--primary); color:#fff; border-color:transparent;}
+    .btn-secondary{background:var(--secondary); color:#fff; border-color:transparent;}
+    .btn-accent{background:var(--accent); color:#fff; border-color:transparent;}
+    .btn-danger{background:var(--danger); color:#fff; border-color:transparent;}
+    .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+    .problem{background:#f8faff; border:2px dashed #dfe7f3; border-radius:12px; padding:14px; font-size:20px; text-align:center;}
+    .feedback{min-height:32px; font-weight:700;}
+    .feedback.ok{color:var(--secondary);} .feedback.no{color:var(--danger);}
+    .explain{background:#fffaf2; border-left:6px solid var(--accent); border-radius:10px; padding:12px; margin-top:10px;}
+    .hint{background:#f0fff7; border-left:6px solid var(--secondary); border-radius:10px; padding:12px; margin-top:10px;}
+    .summary .stat{background:#f7f9fc; border-radius:12px; padding:12px; text-align:center; box-shadow:var(--shadow);}
+    .summary .stat h3{margin:0; font-size:13px; color:var(--muted);} .summary .stat p{margin:6px 0 0 0; font-size:24px; font-weight:800;}
+    .list{list-style:none; padding:0; margin:0;} .list li{background:#f9fbff; border:1px solid #e9f0fb; border-radius:10px; padding:10px; margin-bottom:8px;}
+    .label{font-weight:700; color:var(--muted);}
+    .pill{display:inline-block; background:#eef6ff; color:var(--primary); padding:4px 10px; border-radius:999px; font-weight:700; font-size:13px;}
+    .tiny{font-size:13px; color:var(--muted);}
+    .grid2{display:grid; grid-template-columns: repeat(2,1fr); gap:10px;}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="title">
+      <h1>الوحدة الثالثة — الصفحات ٥٤ إلى ٦١ (منصة محسّنة)</h1>
+      <span class="badge">تصميم احترافي مثل الصورة</span>
+      <span class="badge">توليد أمثلة إضافية تلقائيًا</span>
+      <span class="badge">تصحيح فوري + شرح صوتي + اطلب الحل</span>
+      <span class="badge">أرقام عربية ٠١٢٣٤٥٦٧٨٩</span>
+    </div>
+    <p class="tiny">يشمل ضرب/قسمة الكسور العشرية، وضع الفاصلة، قراءة وتمثيل، ومسائل نصية، مع امتحان نهائي ٢٠ علامة.</p>
+  </header>
+
+  <main>
+    <div class="grid">
+      <!-- لوحة التمرين -->
+      <section class="card">
+        <h2>تمرين تفاعلي</h2>
+
+        <div class="controls" aria-label="إعدادات التوليد">
+          <div>
+            <label for="mode"><span class="pill">الوضع</span></label>
+            <select id="mode">
+              <option value="book">من الكتاب (٥٤–٦١)</option>
+              <option value="free" selected>حر (أمثلة جديدة تلقائيًا)</option>
+            </select>
+          </div>
+          <div>
+            <label for="topic"><span class="pill">الموضوع</span></label>
+            <select id="topic">
+              <option value="mult" selected>ضرب</option>
+              <option value="div">قسمة</option>
+              <option value="place">الفاصلة</option>
+              <option value="read">قراءة/تمثيل</option>
+              <option value="word">مسائل نصية</option>
+              <option value="mix">متنوع</option>
+            </select>
+          </div>
+          <div>
+            <label for="level"><span class="pill">المستوى</span></label>
+            <select id="level">
+              <option value="beginner" selected>مبتدئ</option>
+              <option value="intermediate">متوسط</option>
+              <option value="advanced">متقدم</option>
+            </select>
+          </div>
+          <div>
+            <label for="format"><span class="pill">صيغة الأعداد</span></label>
+            <select id="format">
+              <option value="one-dec">منزلة واحدة</option>
+              <option value="two-dec" selected>منزلتان</option>
+              <option value="mix">مزيج</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row">
+          <button id="btn-new" class="btn-primary">توليد تمرين جديد</button>
+          <button id="btn-speak-q" class="btn-secondary">🔊 قراءة السؤال</button>
+          <button id="btn-hint" class="btn-accent">💡 تلميح</button>
+          <button id="btn-explain" class="btn-accent">📘 الشرح خطوة بخطوة</button>
+          <button id="btn-ai" class="btn-primary">🤖 اطلب الحل</button>
+        </div>
+
+        <div id="problem" class="problem" aria-live="polite" style="margin-top:12px;">— اضغط "توليد تمرين جديد" —</div>
+
+        <div class="row" style="margin-top:12px;">
+          <input id="answer" type="text" inputmode="decimal" placeholder="أدخل الإجابة هنا" aria-label="إدخال الإجابة" />
+          <button id="btn-check" class="btn-secondary">تحقق من الإجابة</button>
+          <button id="btn-speak-a" class="btn-secondary">🔊 قراءة التغذية الراجعة</button>
+        </div>
+
+        <p id="feedback" class="feedback" aria-live="polite"></p>
+        <div id="hint" class="hint" hidden></div>
+        <div id="explain" class="explain" hidden></div>
+
+        <div class="card" style="margin-top:16px;">
+          <h2>اختبار نهائي — ٢٠ علامة</h2>
+          <div class="grid2">
+            <div class="row">
+              <button id="exam-start" class="btn-primary">بدء الامتحان</button>
+              <button id="exam-stop" class="btn-danger">إنهاء الامتحان</button>
+            </div>
+            <div>
+              <label class="tiny">إعدادات الامتحان:</label>
+              <div class="row">
+                <select id="exam-questions">
+                  <option value="10">عدد الأسئلة: 10</option>
+                  <option value="15">عدد الأسئلة: 15</option>
+                  <option value="20" selected>عدد الأسئلة: 20</option>
+                </select>
+                <select id="exam-source">
+                  <option value="book">من الكتاب (٥٤–٦١)</option>
+                  <option value="free" selected>حر — أمثلة جديدة</option>
+                </select>
+                <select id="exam-topic">
+                  <option value="mix" selected>متنوع</option>
+                  <option value="mult">ضرب</option>
+                  <option value="div">قسمة</option>
+                  <option value="place">الفاصلة</option>
+                  <option value="word">نصي</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <p class="tiny">التصحيح فوري، النتيجة النهائية تُحوّل إلى ٢٠ علامة مع تقرير مفصل.</p>
+          <div id="exam-report" class="hint" hidden></div>
+        </div>
+      </section>
+
+      <!-- ملخص الأداء + مراجعة + دروس -->
+      <aside class="card">
+        <h2>ملخص الأداء</h2>
+        <div class="summary" style="display:grid; grid-template-columns: repeat(3,1fr); gap:10px;">
+          <div class="stat"><h3>المحاولات</h3><p id="stat-attempts">0</p></div>
+          <div class="stat"><h3>الصحيحة</h3><p id="stat-correct">0</p></div>
+          <div class="stat"><h3>الخاطئة</h3><p id="stat-wrong">0</p></div>
+        </div>
+        <div class="row" style="margin-top:10px;">
+          <button id="btn-reset" class="btn-danger">إعادة ضبط الملخص</button>
+          <button id="btn-save" class="btn-secondary">حفظ التقدم</button>
+          <button id="btn-load" class="btn-secondary">استعادة التقدم</button>
+        </div>
+
+        <h2 style="margin-top:18px;">مراجعة آخر ٥ أسئلة</h2>
+        <ul id="recent-list" class="list"></ul>
+
+        <h2 style="margin-top:18px;">مكتبة الدروس — الوحدة الثالثة</h2>
+        <div id="lesson-list"></div>
+        <p class="tiny">يتضمن مفاهيم: قيمة المنزلة، ضرب/قسمة كسور عشرية، وضع الفاصلة، التقدير، الأخطاء الشائعة.</p>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    // أدوات الأرقام والتهيئة
+    const arabicDigits = "٠١٢٣٤٥٦٧٨٩";
+    const westernDigits = "0123456789";
+    const toArabicDigits = (str) => (str+"").replace(/[0-9]/g, d => arabicDigits[d]);
+    const toWesternDigits = (str) => (str+"").replace(/[٠-٩]/g, d => westernDigits[arabicDigits.indexOf(d)]);
+    const fmtRaw = (x,dec=10)=> Number(x).toFixed(dec).replace(/\.?0+$/,"");
+    const state = {
+      settings:{arabic:true},
+      attempts:0, correct:0, wrong:0,
+      current:null, // {text, answer, steps, hintText, isWord}
+      recent:[],
+      exam:{active:false,total:20,index:0,correct:0,wrong:0,source:"free",topic:"mix",log:[]}
+    };
+    const speak = (text, lang="ar-SA") => { if(!text) return; const msg=new SpeechSynthesisUtterance(text); msg.lang=lang; msg.rate=0.95; msg.pitch=1.0; speechSynthesis.cancel(); speechSynthesis.speak(msg); };
+    const fmtDisplay = (x,dec=10)=>{ const s=Number(x).toFixed(dec).replace(/\.?0+$/,""); return state.settings.arabic ? toArabicDigits(s) : s; };
+    const setFeedback = (t,ok)=>{ const el=document.getElementById("feedback"); el.textContent=t; el.className="feedback "+(ok?"ok":"no"); };
+    const rand = (min,max,step=1)=>{ const n=Math.floor((max-min)/step+1); return min + step*Math.floor(Math.random()*n); };
+    const sample = arr => arr[Math.floor(Math.random()*arr.length)];
+
+    // دروس سريعة
+    const lessons = [
+      { title:"قيمة المنزلة والقراءة", points:["أجزاء من عشرة/مئة/ألف.","اقرأ الصحيح ثم المنازل.","مثال: ٢.٧٥١ = اثنان صحيح و٧ أجزاء من عشرة و٥ من مئة و١ من ألف."], sample:"٢.٧٥١" },
+      { title:"ضرب عشري في عشري", points:["اضرب كأعداد صحيحة.","أعد الفاصلة بمجموع المنازل.","تحقّق بالتقدير."], sample:"٠.٧ × ٠.٩٨ = ٠.٦٨٦" },
+      { title:"قسمة عشري على عدد صحيح", points:["انقل الفاصلة يسارًا بعدد الأصفار.","قسّم ثم تحقّق.","مثال: ٢٥.٠٠ ÷ ١٠ = ٢.٥٠"], sample:"٢٥.٠٠ ÷ ١٠" },
+      { title:"وضع الفاصلة", points:["اجمع المنازل في العوامل.","ضع الفاصلة في الناتج وفق المجموع.","تحقّق بالتقدير."], sample:"٠.٣٢ × ٧٣٢٩" }
+    ];
+    function renderLessons(){
+      const box=document.getElementById("lesson-list"); box.innerHTML="";
+      lessons.forEach(L=>{
+        const el=document.createElement("div"); el.className="lesson";
+        el.innerHTML = `<h4>${L.title}</h4><ul style="text-align:start;margin:8px 0;">${L.points.map(p=>`<li>${p}</li>`).join("")}</ul><div class="hint"><strong>مثال:</strong> ${state.settings.arabic?toArabicDigits(L.sample):L.sample}</div>`;
+        box.appendChild(el);
+      });
+    }
+
+    // مولّد أمثلة جديدة تلقائيًا (أوسع من السابق)
+    function generateDecimal(format, level){
+      const one=()=> (rand(1,99)/10);      // 0.1..9.9
+      const two=()=> (rand(1,999)/100);    // 0.01..9.99
+      const span = l=> l==="beginner"?[0.1,9.9]:l==="intermediate"?[0.1,99.9]:[0.01,999.99];
+      const [lo,hi]=span(level);
+      let x = format==="one-dec"?one():format==="two-dec"?two():(Math.random()<0.5?one():two());
+      if(level!=="beginner"){const f=level==="intermediate"?10:100; if(Math.random()<0.5) x*=f;}
+      x = Math.min(Math.max(x,lo),hi);
+      return Number(x.toFixed(3));
+    }
+    function explainMultiply(a,b){
+      const sa=fmtRaw(a), sb=fmtRaw(b);
+      const da=(sa.split(".")[1]||"").length, db=(sb.split(".")[1]||"").length, shift=da+db;
+      const A=Number(sa.replace(".","")), B=Number(sb.replace(".","")), prodInt=A*B, prod=prodInt/Math.pow(10,shift);
+      const steps=[
+        `حوّل العوامل إلى صحيحة بإزالة الفاصلة: ${fmtDisplay(A)} و ${fmtDisplay(B)}.`,
+        `اضرب كأعداد صحيحة: ${fmtDisplay(A)} × ${fmtDisplay(B)} = ${fmtDisplay(prodInt)}.`,
+        `أعد الفاصلة بمجموع المنازل (${fmtDisplay(da)} + ${fmtDisplay(db)} = ${fmtDisplay(shift)}): ${fmtDisplay(prod,6)}.`,
+        `تحقق بالتقدير: إذا كان كلاهما أقل من ١ فالناتج أصغر من العاملين.`
+      ];
+      return {answer:Number(prod.toFixed(6)), steps, hintText:`عدّ المنازل، اضرب كأعداد صحيحة، ثم أعد الفاصلة.`};
+    }
+    function explainDivide(a,b){
+      const sb=fmtRaw(b), db=(sb.split(".")[1]||"").length, scale=Math.pow(10,db);
+      const A=Math.round(a*scale), B=Math.round(b*scale), q=A/B;
+      const steps=[
+        `حوّل المقسوم عليه ${fmtDisplay(b)} إلى عدد صحيح بنقل الفاصلة ${fmtDisplay(db)} منزلة.`,
+        `انقل الفاصلة في المقسوم ${fmtDisplay(a)} بالقدر نفسه.`,
+        `قسّم: ${fmtDisplay(A)} ÷ ${fmtDisplay(B)} = ${fmtDisplay(q,6)}.`,
+        `تحقق: القسمة على ١٠/١٠٠ تحرك الفاصلة يسارًا بعدد الأصفار.`
+      ];
+      return {answer:Number(q.toFixed(6)), steps, hintText:`حوّل المقسوم عليه لعدد صحيح، ثم انقل الفاصلة في المقسوم بنفس العدد.`};
+    }
+
+    function buildFreeQuestion(topic, level, format){
+      const op = topic==="mult" ? "×" : topic==="div" ? "÷" : (Math.random()<0.5 ? "×" : "÷");
+      if(topic==="word"){
+        // مسائل جديدة: سعر × كمية، طول × نسبة، قسمة مسافة/سرعة
+        const type = sample(["price","ratio","speed"]);
+        if(type==="price"){
+          const price = Number((rand(5, 30)/10).toFixed(1)); // 0.5..3.0
+          const qty = Number((rand(1, 50)/10).toFixed(1));   // 0.1..5.0
+          const ans = Number((price*qty).toFixed(6));
+          const ex = explainMultiply(price, qty);
+          return { text:`سعر الوحدة ${fmtDisplay(price,1)} دينار × كمية ${fmtDisplay(qty,1)} = ؟`, answer:ans, steps:ex.steps, hintText:`المبلغ = السعر × الكمية.`, isWord:true };
+        } else if(type==="ratio"){
+          const whole = Number((rand(1, 200)/10).toFixed(1));  // 0.1..20.0
+          const percent = Number((rand(1, 90)/100).toFixed(2)); // 0.01..0.90
+          const ans = Number((whole*percent).toFixed(6));
+          const ex = explainMultiply(whole, percent);
+          return { text:`طول ${fmtDisplay(whole,1)} م × نسبة ${fmtDisplay(percent,2)} = ؟`, answer:ans, steps:ex.steps, hintText:`الجزء = الطول × النسبة.`, isWord:true };
+        } else {
+          const dist = Number((rand(10, 300)/10).toFixed(1));
+          const speed = Number((rand(5, 150)/10).toFixed(1));
+          const ans = Number((dist/speed).toFixed(6));
+          const ex = explainDivide(dist, speed);
+          return { text:`مسافة ${fmtDisplay(dist,1)} كم ÷ سرعة ${fmtDisplay(speed,1)} كم/س = الوقت؟`, answer:ans, steps:ex.steps, hintText:`الوقت = المسافة ÷ السرعة.`, isWord:true };
+        }
+      } else if(topic==="place"){
+        // وضع الفاصلة: نعرض ناتجًا صحيحيًا ونطلب موضع الفاصلة
+        const a = generateDecimal(format, level), b = generateDecimal(format, level);
+        const ex = explainMultiply(a,b);
+        const raw = String(ex.answer).replace(".",""); // ناتج بدون فاصلة
+        return { text:`ضع الفاصلة: ${fmtDisplay(a)} × ${fmtDisplay(b)} = ${toArabicDigits(raw)} → الناتج العشري = ؟`, answer:ex.answer, steps:ex.steps, hintText:`مجموع المنازل في العوامل يحدد مكان الفاصلة.` };
+      } else if(topic==="read"){
+        const n = Number(generateDecimal(format, level).toFixed(3));
+        return { text:`اقرأ العدد: ${fmtDisplay(n,3)} — اكتب القراءة بالكلمات.`, answer:null, steps:["اقرأ الصحيح ثم أجزاء من عشرة/مئة/ألف."], hintText:`ابدأ بالصحيح ثم المنازل حسب الموضع.`, isWord:false };
+      } else {
+        let a = generateDecimal(format, level), b = generateDecimal(format, level);
+        if(op==="÷" && Math.abs(b)<1e-9){ b=0.1; }
+        const ex = (op==="×") ? explainMultiply(a,b) : explainDivide(a,b);
+        return { text:`احسب: ${fmtDisplay(a)} ${op} ${fmtDisplay(b)} = ؟`, answer:ex.answer, steps:ex.steps, hintText:ex.hintText, isWord:false };
+      }
+    }
+
+    function generateProblem(){
+      state.settings.arabic = true;
+      const mode=document.getElementById("mode").value;
+      const topic=document.getElementById("topic").value;
+      const level=document.getElementById("level").value;
+      const format=document.getElementById("format").value;
+
+      let q;
+      if(mode==="free"){
+        q = buildFreeQuestion(topic, level, format);
+      } else {
+        // أمثلة من الكتاب (مختارة) + توليد إضافي إذا لزم
+        const book = [
+          { text:`١٠٠٠ × ٠.٠٦ = ؟`, ...explainMultiply(1000,0.06) },
+          { text:`١٠٠ × ٠.٢٥ = ؟`, ...explainMultiply(100,0.25) },
+          { text:`٠.٧ × ٠.٩٨ = ؟`, ...explainMultiply(0.7,0.98) },
+          { text:`٢٥.٠٠ ÷ ١٠ = ؟`, ...explainDivide(25.00,10) }
+        ];
+        const picked = sample(book);
+        q = picked;
+      }
+
+      state.current = q;
+      document.getElementById("problem").textContent = q.text;
+      document.getElementById("feedback").textContent = "";
+      document.getElementById("explain").hidden = true;
+      document.getElementById("hint").hidden = true;
+      document.getElementById("answer").value = "";
+    }
+
+    // تحقق
+    function isClose(x,y,tol=1e-6){ return Math.abs(Number(x)-Number(y))<=tol; }
+    function checkAnswer(){
+      if(!state.current){ setFeedback("أنشئ تمرينًا أولًا.", false); return; }
+      const raw = document.getElementById("answer").value.trim();
+      const user = Number(toWesternDigits(raw).replace(",","."));
+      state.attempts++;
+
+      if(state.current.answer==null || !isFinite(user)){
+        state.wrong++; setFeedback("هذا نشاط تفسيري/قراءة/وضع فاصلة. راجع الشرح ثم أدخل قيمة عددية عند الإمكان.", false);
+        maybeAutoHint(); updateSummary(); addRecent(false, raw); updateExam(false); return;
+      }
+
+      const ok = isClose(user, state.current.answer, 1e-6);
+      if(ok){ state.correct++; setFeedback(`أحسنت! الإجابة صحيحة: ${fmtDisplay(state.current.answer,6)}.`, true); hideHint(); }
+      else { state.wrong++; setFeedback("ليست صحيحة بعد. راجع موضع الفاصلة أو الخطوات.", false); maybeAutoHint(); }
+      updateSummary(); addRecent(ok, raw); updateExam(ok);
+    }
+
+    // تلميح/شرح/حل آلي
+    function showHint(){ if(!state.current) return; const el=document.getElementById("hint"); el.textContent="تلميح: "+state.current.hintText; el.hidden=false; }
+    function hideHint(){ const el=document.getElementById("hint"); el.hidden=true; el.textContent=""; }
+    function maybeAutoHint(){ showHint(); }
+    function showExplain(){
+      if(!state.current) return;
+      const el=document.getElementById("explain");
+      el.innerHTML = "<strong>الشرح خطوة بخطوة:</strong><ol style='text-align:start;margin-top:8px;'>" +
+        (state.current.steps||[]).map(s=>`<li>${s}</li>`).join("") + "</ol>";
+      el.hidden = false;
+    }
+    function aiSolution(){
+      if(!state.current){ setFeedback("أنشئ تمرينًا أولًا.", false); return; }
+      const steps = state.current.steps||[];
+      const answerLine = (state.current.answer!=null) ? `النتيجة النهائية: ${fmtDisplay(state.current.answer,6)}.` : "هذه مهمة تفسيرية/قراءة/فاصلة — ركّز على القاعدة.";
+      const text = `حل آلي: نتبع القاعدة المناسبة.\n` + steps.map(s=>`• ${s}`).join("\n") + "\n" + answerLine;
+      const el=document.getElementById("explain");
+      el.innerHTML = `<strong>الحل المفصّل (آلي):</strong><pre style="white-space:pre-wrap; text-align:start; margin-top:8px;">${text}</pre>`;
+      el.hidden = false; speak("تم عرض الحل المفصّل.");
+    }
+
+    // صوت
+    function speakQuestion(){ if(!state.current) return; speak(state.current.text); }
+    function speakFeedback(){ const t=document.getElementById("feedback").textContent; speak(t); }
+
+    // أداء
+    function updateSummary(){
+      const f = s => state.settings.arabic ? toArabicDigits(s) : String(s);
+      document.getElementById("stat-attempts").textContent = f(state.attempts);
+      document.getElementById("stat-correct").textContent  = f(state.correct);
+      document.getElementById("stat-wrong").textContent    = f(state.wrong);
+    }
+    function addRecent(ok, raw){
+      const item={ q: state.current.text, a: state.current.answer!=null ? fmtDisplay(state.current.answer,6) : "—", user: (state.settings.arabic?toArabicDigits(toWesternDigits(raw)):toWesternDigits(raw)), ok };
+      state.recent.unshift(item); state.recent = state.recent.slice(0,5); renderRecent();
+    }
+    function renderRecent(){
+      const box=document.getElementById("recent-list"); box.innerHTML="";
+      state.recent.forEach(r=>{
+        const li=document.createElement("li");
+        li.innerHTML = `
+          <div><span class="label">السؤال:</span> ${r.q}</div>
+          <div><span class="label">إجابتك:</span> ${r.user} ${r.ok ? "✅" : "❌"}</div>
+          <div><span class="label">الحل الصحيح:</span> ${r.a}</div>`;
+        box.appendChild(li);
+      });
+    }
+    function resetSummary(){ state.attempts=0; state.correct=0; state.wrong=0; updateSummary(); setFeedback("تمت إعادة ضبط الملخص.", true); hideHint(); document.getElementById("explain").hidden=true; }
+
+    // حفظ/استعادة
+    function saveProgress(){
+      const payload = { attempts:state.attempts, correct:state.correct, wrong:state.wrong, recent:state.recent };
+      localStorage.setItem("unit3_interactive_pro", JSON.stringify(payload));
+      setFeedback("تم حفظ التقدم محليًا.", true);
+    }
+    function loadProgress(){
+      const raw = localStorage.getItem("unit3_interactive_pro"); if(!raw){ setFeedback("لا يوجد حفظ سابق.", false); return; }
+      try{
+        const data = JSON.parse(raw);
+        state.attempts = data.attempts||0; state.correct = data.correct||0; state.wrong = data.wrong||0;
+        state.recent = Array.isArray(data.recent)?data.recent:[];
+        updateSummary(); renderRecent();
+        setFeedback("تمت الاستعادة بنجاح.", true);
+      }catch{ setFeedback("تعذّرت الاستعادة.", false); }
+    }
+
+    // امتحان
+    function examStart(){
+      const total=Number(document.getElementById("exam-questions").value);
+      const source=document.getElementById("exam-source").value;
+      const topic=document.getElementById("exam-topic").value;
+      state.exam = {active:true, total, index:0, correct:0, wrong:0, source, topic, log:[]};
+      setFeedback(`بدأ الامتحان (${state.settings.arabic?toArabicDigits(total):String(total)} سؤال). بالتوفيق!`, true);
+      document.getElementById("exam-report").hidden = true;
+      generateExamQuestion();
+    }
+    function examStop(){ state.exam.active=false; renderExamReport(); }
+    function generateExamQuestion(){
+      const mode = state.exam.source==="book" ? "book" : "free";
+      document.getElementById("mode").value = mode;
+      document.getElementById("topic").value = state.exam.topic;
+      generateProblem();
+    }
+    function updateExam(ok){
+      if(!state.exam.active) return;
+      state.exam.index++; if(ok) state.exam.correct++; else state.exam.wrong++;
+      state.exam.log.push({q:state.current.text, a: state.current.answer!=null ? fmtDisplay(state.current.answer,6) : "—", ok});
+      if(state.exam.index<state.exam.total){ generateExamQuestion(); } else { state.exam.active=false; renderExamReport(); }
+    }
+    function renderExamReport(){
+      const box = document.getElementById("exam-report");
+      const total=state.exam.total, c=state.exam.correct, w=state.exam.wrong;
+      const score20 = Math.round((c/total)*20), percent = Math.round((c/total)*100);
+      const note = c>=w ? "فهم جيد لموضع الفاصلة ومعالجة الضرب/القسمة." : "راجع قاعدة نقل/إعادة الفاصلة والتقدير قبل الحل.";
+      box.innerHTML = `
+        <strong>تقرير الامتحان:</strong>
+        <ul style="text-align:start; margin-top:8px;">
+          <li>عدد الأسئلة: ${state.settings.arabic?toArabicDigits(total):String(total)}</li>
+          <li>الصحيحة: ${state.settings.arabic?toArabicDigits(c):String(c)}</li>
+          <li>الخاطئة: ${state.settings.arabic?toArabicDigits(w):String(w)}</li>
+          <li>النسبة: ${state.settings.arabic?toArabicDigits(percent):String(percent)}%</li>
+          <li>الدرجة النهائية: ${state.settings.arabic?toArabicDigits(score20):String(score20)} / ٢٠</li>
+          <li>ملاحظة: ${note}</li>
+        </ul>
+        <details style="text-align:start;"><summary>سجلّ الأسئلة</summary><ol>${state.exam.log.map(i=>`<li>${i.q} — الحل: ${i.a} — ${i.ok?'✅':'❌'}</li>`).join("")}</ol></details>
+      `;
+      box.hidden = false;
+      speak(`انتهى الامتحان. حصلت على ${state.settings.arabic?toArabicDigits(score20):String(score20)} من ٢٠.`);
+    }
+
+    // أحداث
+    document.getElementById("btn-new").addEventListener("click", generateProblem);
+    document.getElementById("btn-check").addEventListener("click", checkAnswer);
+    document.getElementById("btn-reset").addEventListener("click", resetSummary);
+    document.getElementById("btn-hint").addEventListener("click", showHint);
+    document.getElementById("btn-explain").addEventListener("click", showExplain);
+    document.getElementById("btn-ai").addEventListener("click", aiSolution);
+    document.getElementById("btn-speak-q").addEventListener("click", speakQuestion);
+    document.getElementById("btn-speak-a").addEventListener("click", speakFeedback);
+    document.getElementById("btn-save").addEventListener("click", saveProgress);
+    document.getElementById("btn-load").addEventListener("click", loadProgress);
+    document.getElementById("exam-start").addEventListener("click", examStart);
+    document.getElementById("exam-stop").addEventListener("click", examStop);
+
+    // بدء
+    renderLessons(); updateSummary(); renderRecent();
+  </script>
+</body>
+</html>
