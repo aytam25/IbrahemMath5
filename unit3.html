@@ -5,239 +5,111 @@
   <meta charset="UTF-8" />
   <title>النظام النهائي — الوحدة ٣ (صفحات ٥٤–٦١) | منصة تفاعلية محسّنة</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>/* ضبط عام */
-* {
-  box-sizing: border-box;
-}
-html, body {
-  overflow-x: hidden;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  background: #f6f9ff;
-  color: #1f2d3d;
-  font-family: "Cairo", Tahoma, Arial;
-  line-height: 1.6;
-}
+  <style>
 
-/* الرأس */
-header {
-  background: linear-gradient(135deg, #2E86DE, #6c5ce7);
-  color: #fff;
-  padding: 18px 20px;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
-}
-header .title {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
-}
-header .badge {
-  background: rgba(255,255,255,0.18);
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-size: 14px;
-}
-.tiny {
-  font-size: 13px;
-  color: #7a8aa0;
-}
-
-/* الحاوية الرئيسية */
-main {
-  width: 100%;
-  max-width: 100%;
-  margin: 20px auto;
-  padding: 10px;
-  overflow-x: hidden;
-}
-
-/* الشبكة */
-.grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 18px;
-}
-@media (min-width: 768px) {
-  .grid {
-    grid-template-columns: 1.2fr 0.8fr;
-  }
-}
-
-/* البطاقات */
-.card {
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
-  padding: 16px;
-  max-width: 100%;
-  overflow-wrap: break-word;
-  height: auto;
-  min-height: fit-content;
-  transition: all 0.3s ease-in-out;
-}
-
-/* العناوين */
-h2 {
-  margin: 8px 0 14px 0;
-  font-size: 22px;
-}
-
-/* عناصر التحكم */
-.controls {
-  display: grid;
-  grid-template-columns: repeat(4,1fr);
-  gap: 10px;
-  margin-bottom: 12px;
-}
-select, button, input[type="text"] {
-  background: #fff;
-  border: 2px solid #eaeef3;
-  border-radius: 12px;
-  padding: 10px;
-  font-size: 16px;
-  color: #1f2d3d;
-  transition: all .2s ease;
-  max-width: 100%;
-}
-select:focus, input:focus {
-  outline: none;
-  border-color: #2E86DE;
-  box-shadow: 0 0 0 3px rgba(46,134,222,.15);
-}
-button {
-  cursor: pointer;
-  font-weight: 700;
-  transition: transform 0.2s ease;
-}
-button:hover {
-  transform: scale(1.05);
-}
-.btn-primary { background:#2E86DE; color:#fff; border-color:transparent; }
-.btn-secondary { background:#10ac84; color:#fff; border-color:transparent; }
-.btn-accent { background:#ff9f43; color:#fff; border-color:transparent; }
-.btn-danger { background:#ee5253; color:#fff; border-color:transparent; }
-
-/* الصفوف */
-.row {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  flex-wrap: wrap;
-  max-width: 100%;
-}
-
-/* المسائل */
-.problem {
-  background: #f8faff;
-  border: 2px dashed #dfe7f3;
-  border-radius: 12px;
-  padding: 14px;
-  font-size: 20px;
-  text-align: center;
-  max-width: 100%;
-  height: auto;
-}
-
-/* التغذية الراجعة */
-.feedback { min-height: 32px; font-weight: 700; }
-.feedback.ok { color: #10ac84; }
-.feedback.no { color: #ee5253; }
-
-/* الشرح والتلميح مع تأثيرات */
-.explain, .hint {
-  border-radius: 10px;
-  padding: 12px;
-  margin-top: 10px;
-  max-width: 100%;
-  overflow-wrap: break-word;
-  height: auto;
-  opacity: 0;
-  max-height: 0;
-  overflow: hidden;
-  transition: all 0.5s ease-in-out;
-}
-.explain.show, .hint.show {
-  opacity: 1;
-  max-height: 500px; /* يتمدد تدريجيًا */
-  padding: 12px;
-}
-.explain { background:#fffaf2; border-left:6px solid #ff9f43; }
-.hint { background:#f0fff7; border-left:6px solid #10ac84; }
-
-/* الملخص */
-.summary .stat {
-  background:#f7f9fc;
+#calc-input { /*الة حاسبة */
+  border:2px solid #eaeef3;
   border-radius:12px;
-  padding:12px;
-  text-align:center;
-  box-shadow:0 10px 24px rgba(0,0,0,0.08);
-  height: auto;
 }
-.summary .stat h3 { margin:0; font-size:13px; color:#7a8aa0; }
-.summary .stat p { margin:6px 0 0 0; font-size:24px; font-weight:800; }
-
-/* القوائم */
-.list { list-style:none; padding:0; margin:0; }
-.list li {
-  background:#f9fbff;
-  border:1px solid #e9f0fb;
-  border-radius:10px;
-  padding:10px;
-  margin-bottom:8px;
-  max-width: 100%;
-  overflow-wrap: break-word;
-  height: auto;
+#calc-result {
+  margin-top:10px;
+  font-weight:bold;
+  font-size:18px;
 }
-.label { font-weight:700; color:#7a8aa0; }
-.pill {
-  display:inline-block;
-  background:#eef6ff;
-  color:#2E86DE;
-  padding:4px 10px;
-  border-radius:999px;
-  font-weight:700;
-  font-size:13px;
-}
-
-/* الشبكة الثانوية */
-.grid2 {
-  display:grid;
-  grid-template-columns: repeat(2,1fr);
-  gap:10px;
-  max-width: 100%;
-  height: auto;
-}
-
-/* النصوص الطويلة */
-pre {
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  overflow-x: auto;
-  height: auto;
-}
-
 /* إعداد العرض للجوال */
 @media (max-width: 768px) {
   body {
-    font-size: 16px;
+    font-size: 16px; /* تكبير النصوص قليلاً */
     padding: 5px;
   }
+
   header {
     text-align: center;
     padding: 12px;
   }
-  h1 { font-size: 20px; }
-  .grid { display: block; }
-  .card { margin: 10px 0; padding: 12px; }
-  .controls { grid-template-columns: 1fr; gap: 8px; }
-  .row { flex-direction: column; gap: 8px; }
-  button { width: 100%; font-size: 18px; padding: 12px; }
-  input[type="text"] { width: 100%; font-size: 18px; padding: 10px; }
-  .problem { font-size: 18px; padding: 10px; }
-  .summary .stat p { font-size: 20px; }
-}  </style>
+
+  h1 {
+    font-size: 20px;
+  }
+
+  .grid {
+    display: block; /* اجعل الأعمدة عمود واحد */
+  }
+
+  .card {
+    margin: 10px 0;
+    padding: 12px;
+  }
+
+  .controls {
+    grid-template-columns: 1fr; /* كل عنصر في سطر منفصل */
+    gap: 8px;
+  }
+
+  .row {
+    flex-direction: column; /* الأزرار تحت بعضها */
+    gap: 8px;
+  }
+
+  button {
+    width: 100%; /* الأزرار بعرض الشاشة */
+    font-size: 18px;
+    padding: 12px;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    font-size: 18px;
+    padding: 10px;
+  }
+
+  .problem {
+    font-size: 18px;
+    padding: 10px;
+  }
+
+  .summary .stat p {
+    font-size: 20px;
+  }
+}
+
+    :root{
+      --bg:#f6f9ff; --primary:#2E86DE; --secondary:#10ac84; --accent:#ff9f43; --danger:#ee5253;
+      --text:#1f2d3d; --card:#ffffff; --muted:#7a8aa0; --shadow:0 10px 24px rgba(0,0,0,0.08); --radius:16px;
+    }
+    html,body{background:var(--bg); color:var(--text); font-family:"Cairo", Tahoma, Arial; margin:0;}
+    header{background:linear-gradient(135deg,var(--primary),#6c5ce7); color:#fff; padding:18px 20px; box-shadow:var(--shadow);}
+    header .title{display:flex; align-items:center; gap:14px; flex-wrap:wrap;}
+    header .badge{background:rgba(255,255,255,0.18); padding:6px 12px; border-radius:999px; font-size:14px;}
+    main{max-width:1200px; margin:20px auto; padding:10px;}
+    .grid{display:grid; grid-template-columns:1.2fr 0.8fr; gap:18px;}
+    .card{background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:16px;}
+    h2{margin:8px 0 14px 0; font-size:22px;}
+    .controls{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:12px;}
+    select,button,input[type="text"]{
+      background:#fff; border:2px solid #eaeef3; border-radius:12px; padding:10px; font-size:16px; color:var(--text);
+      transition:all .2s ease;
+    }
+    select:focus,input:focus{outline:none; border-color:var(--primary); box-shadow:0 0 0 3px rgba(46,134,222,.15);}
+    button{cursor:pointer; font-weight:700;}
+    .btn-primary{background:var(--primary); color:#fff; border-color:transparent;}
+    .btn-secondary{background:var(--secondary); color:#fff; border-color:transparent;}
+    .btn-accent{background:var(--accent); color:#fff; border-color:transparent;}
+    .btn-danger{background:var(--danger); color:#fff; border-color:transparent;}
+    .row{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+    .problem{background:#f8faff; border:2px dashed #dfe7f3; border-radius:12px; padding:14px; font-size:20px; text-align:center;}
+    .feedback{min-height:32px; font-weight:700;}
+    .feedback.ok{color:var(--secondary);} .feedback.no{color:var(--danger);}
+    .explain{background:#fffaf2; border-left:6px solid var(--accent); border-radius:10px; padding:12px; margin-top:10px;}
+    .hint{background:#f0fff7; border-left:6px solid var(--secondary); border-radius:10px; padding:12px; margin-top:10px;}
+    .summary .stat{background:#f7f9fc; border-radius:12px; padding:12px; text-align:center; box-shadow:var(--shadow);}
+    .summary .stat h3{margin:0; font-size:13px; color:var(--muted);} .summary .stat p{margin:6px 0 0 0; font-size:24px; font-weight:800;}
+    .list{list-style:none; padding:0; margin:0;} .list li{background:#f9fbff; border:1px solid #e9f0fb; border-radius:10px; padding:10px; margin-bottom:8px;}
+    .label{font-weight:700; color:var(--muted);}
+    .pill{display:inline-block; background:#eef6ff; color:var(--primary); padding:4px 10px; border-radius:999px; font-weight:700; font-size:13px;}
+    .tiny{font-size:13px; color:var(--muted);}
+    .grid2{display:grid; grid-template-columns: repeat(2,1fr); gap:10px;}
+  </style>
 </head>
 <body>
   <header>
@@ -251,136 +123,137 @@ pre {
     <p class="tiny">يشمل ضرب/قسمة الكسور العشرية، وضع الفاصلة، قراءة وتمثيل، ومسائل نصية، مع امتحان نهائي ٢٠ علامة.</p>
   </header>
 
-  <main>
-    <div class="grid">
+<main>
+  <div class="grid">
 
-      <!-- لوحة التمرين -->
-      <section class="card">
-        <h2>تمرين تفاعلي</h2>
+    <!-- لوحة التمرين -->
+    <section class="card">
+      <h2>تمرين تفاعلي</h2>
 
-        <div class="controls" aria-label="إعدادات التوليد">
-          <div>
-            <label for="mode"><span class="pill">الوضع</span></label>
-            <select id="mode">
-              <option value="book">من الكتاب (٥٤–٦١)</option>
-              <option value="free" selected>حر (أمثلة جديدة تلقائيًا)</option>
-            </select>
-          </div>
-          <div>
-            <label for="topic"><span class="pill">الموضوع</span></label>
-            <select id="topic">
-              <option value="mult" selected>ضرب</option>
-              <option value="div">قسمة</option>
-              <option value="place">الفاصلة</option>
-              <option value="read">قراءة/تمثيل</option>
-              <option value="word">مسائل نصية</option>
-              <option value="mix">متنوع</option>
-            </select>
-          </div>
-          <div>
-            <label for="level"><span class="pill">   المستوى</span></label>
-            <select id="level">
-              <option value="beginner" selected>مبتدئ</option>
-              <option value="intermediate">متوسط</option>
-              <option value="advanced">متقدم</option>
-            </select>
-          </div>
-          <div>
-            <label for="format"><span class="pill">صيغة الأعداد</span></label>
-            <select id="format">
-              <option value="one-dec">منزلة واحدة</option>
-              <option value="two-dec" selected>منزلتان</option>
-              <option value="mix">مزيج</option>
-            </select>
-          </div>
+      <div class="controls" aria-label="إعدادات التوليد">
+        <div>
+          <label for="mode"><span class="pill">الوضع</span></label>
+          <select id="mode">
+            <option value="book">من الكتاب (٥٤–٦١)</option>
+            <option value="free" selected>حر (أمثلة جديدة تلقائيًا)</option>
+          </select>
         </div>
+        <div>
+          <label for="topic"><span class="pill">الموضوع</span></label>
+          <select id="topic">
+            <option value="mult" selected>ضرب</option>
+            <option value="div">قسمة</option>
+            <option value="place">الفاصلة</option>
+            <option value="read">قراءة/تمثيل</option>
+            <option value="word">مسائل نصية</option>
+            <option value="mix">متنوع</option>
+          </select>
+        </div>
+        <div>
+          <label for="level"><span class="pill">المستوى</span></label>
+          <select id="level">
+            <option value="beginner" selected>مبتدئ</option>
+            <option value="intermediate">متوسط</option>
+            <option value="advanced">متقدم</option>
+          </select>
+        </div>
+        <div>
+          <label for="format"><span class="pill">صيغة الأعداد</span></label>
+          <select id="format">
+            <option value="one-dec">منزلة واحدة</option>
+            <option value="two-dec" selected>منزلتان</option>
+            <option value="mix">مزيج</option>
+          </select>
+        </div>
+      </div>
 
+      <div class="row">
+        <button id="btn-new" class="btn-primary">توليد تمرين جديد</button>
+        <button id="btn-speak-q" class="btn-secondary">🔊 قراءة السؤال</button>
+        <button id="btn-hint" class="btn-accent">💡 تلميح</button>
+        <button id="btn-explain" class="btn-accent">📘 الشرح خطوة بخطوة</button>
+        <button id="btn-ai" class="btn-primary">🤖 اطلب الحل</button>
+      </div>
+
+      <!-- آلة حاسبة خفيفة -->
+      <section class="card" style="margin-top:16px;">
+        <h2>🧮 آلة حاسبة خفيفة</h2>
         <div class="row">
-          <button id="btn-new" class="btn-primary">توليد تمرين جديد</button>
-          <button id="btn-speak-q" class="btn-secondary">🔊 قراءة السؤال</button>
-          <button id="btn-hint" class="btn-accent">💡 تلميح</button>
-          <button id="btn-explain" class="btn-accent">📘 الشرح خطوة بخطوة</button>
-          <button id="btn-ai" class="btn-primary">🤖 اطلب الحل</button>
-              </div>
-    <!-- آلة حاسبة خفيفة -->
-<section class="card">
-  <h2>🧮 آلة حاسبة خفيفة</h2>
-  <div class="row">
-    <input id="calc-input" type="text" placeholder="أدخل العملية مثل 2+3*4" style="flex:1; font-size:18px; padding:10px;">
-    <button class="btn-primary" onclick="calcEvaluate()">احسب</button>
-  </div>
-  <p id="calc-result" class="feedback"></p>
-</section>
-
-        <div id="problem" class="problem" aria-live="polite" style="margin-top:12px;">— اضغط "توليد تمرين جديد" —</div>
-
-        <div class="row" style="margin-top:12px;">
-          <input id="answer" type="text" inputmode="decimal" placeholder="أدخل الإجابة هنا" aria-label="إدخال الإجابة" />
-          <button id="btn-check" class="btn-secondary">تحقق من الإجابة</button>
-          <button id="btn-speak-a" class="btn-secondary">🔊 قراءة التغذية الراجعة</button>
+          <input id="calc-input" type="text" placeholder="أدخل العملية مثل 2+3*4" style="flex:1; font-size:18px; padding:10px;">
+          <button class="btn-primary" onclick="calcEvaluate()">احسب</button>
         </div>
-
-        <p id="feedback" class="feedback" aria-live="polite"></p>
-        <div id="hint" class="hint" hidden></div>
-        <div id="explain" class="explain" hidden></div>
-
-        <div class="card" style="margin-top:16px;">
-          <h2>اختبار نهائي — ٢٠ علامة</h2>
-          <div class="grid2">
-            <div class="row">
-              <button id="exam-start" class="btn-primary">بدء الامتحان</button>
-              <button id="exam-stop" class="btn-danger">إنهاء الامتحان</button>
-            </div>
-            <div>
-              <label class="tiny">إعدادات الامتحان:</label>
-              <div class="row">
-                <select id="exam-questions">
-                  <option value="10">عدد الأسئلة: 10</option>
-                  <option value="15">عدد الأسئلة: 15</option>
-                  <option value="20" selected>عدد الأسئلة: 20</option>
-                </select>
-                <select id="exam-source">
-                  <option value="book">من الكتاب (٥٤–٦١)</option>
-                  <option value="free" selected>حر — أمثلة جديدة</optionال
-                </select>
-                <select id="exam-topic">
-                  <option value="mix" selected>متنوع</option>
-                  <option value="mult">ضرب</option>
-                  <option value="div">قسمة</option>
-                  <option value="place">الفاصلة</option>
-                  <option value="word">نصي</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <p class="tiny">التصحيح فوري، النتيجة النهائية تُحوّل إلى ٢٠ علامة مع تقرير مفصل.</p>
-          <div id="exam-report" class="hint" hidden></div>
-        </div>
+        <p id="calc-result" class="feedback"></p>
       </section>
 
-      <!-- ملخص الأداء + مراجعة + دروس -->
-      <aside class="card">
-        <h2>ملخص الأداء</h2>
-        <div class="summary" style="display:grid; grid-template-columns: repeat(3,1fr); gap:10px;">
-          <div class="stat"><h3>المحاولات</h3><p id="stat-attempts">0</p></div>
-          <div class="stat"><h3>الصحيحة</h3><p id="stat-correct">0</p></div>
-          <div class="stat"><h3>الخاطئة</h3><p id="stat-wrong">0</p></div>
-        </div>
-        <div class="row" style="margin-top:10px;">
-          <button id="btn-reset" class="btn-danger">إعادة ضبط الملخص</button>
-          <button id="btn-save" class="btn-secondary">حفظ التقدم</button>
-          <button id="btn-load" class="btn-secondary">استعادة التقدم</button>
-        </div>
+      <div id="problem" class="problem" aria-live="polite" style="margin-top:12px;">— اضغط "توليد تمرين جديد" —</div>
 
-        <h2 style="margin-top:18px;">مراجعة آخر ٥ أسئلة</h2>
-        <ul id="recent-list" class="list"></ul>
+      <div class="row" style="margin-top:12px;">
+        <input id="answer" type="text" inputmode="decimal" placeholder="أدخل الإجابة هنا" aria-label="إدخال الإجابة" />
+        <button id="btn-check" class="btn-secondary">تحقق من الإجابة</button>
+        <button id="btn-speak-a" class="btn-secondary">🔊 قراءة التغذية الراجعة</button>
+      </div>
 
-        <h2 style="margin-top:18px;">مكتبة الدروس — الوحدة الثالثة</h2>
-        <div id="lesson-list"></div>
-        <p class="tiny">يتضمن مفاهيم: قيمة المنزلة، ضرب/قسمة كسور عشرية، وضع الفاصلة، التقدير، الأخطاء الشائعة.</p>
-      </aside>
-    </div>
-  </main>
+      <p id="feedback" class="feedback" aria-live="polite"></p>
+      <div id="hint" class="hint" hidden></div>
+      <div id="explain" class="explain" hidden></div>
+
+      <div class="card" style="margin-top:16px;">
+        <h2>اختبار نهائي — ٢٠ علامة</h2>
+        <div class="grid2">
+          <div class="row">
+            <button id="exam-start" class="btn-primary">بدء الامتحان</button>
+            <button id="exam-stop" class="btn-danger">إنهاء الامتحان</button>
+          </div>
+          <div>
+            <label class="tiny">إعدادات الامتحان:</label>
+            <div class="row">
+              <select id="exam-questions">
+                <option value="10">عدد الأسئلة: 10</option>
+                <option value="15">عدد الأسئلة: 15</option>
+                <option value="20" selected>عدد الأسئلة: 20</option>
+              </select>
+              <select id="exam-source">
+                <option value="book">من الكتاب (٥٤–٦١)</option>
+                <option value="free" selected>حر — أمثلة جديدة</option>
+              </select>
+              <select id="exam-topic">
+                <option value="mix" selected>متنوع</option>
+                <option value="mult">ضرب</option>
+                <option value="div">قسمة</option>
+                <option value="place">الفاصلة</option>
+                <option value="word">نصي</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <p class="tiny">التصحيح فوري، النتيجة النهائية تُحوّل إلى ٢٠ علامة مع تقرير مفصل.</p>
+        <div id="exam-report" class="hint" hidden></div>
+      </div>
+    </section>
+
+    <!-- ملخص الأداء + مراجعة + دروس -->
+    <aside class="card">
+      <h2>ملخص الأداء</h2>
+      <div class="summary" style="display:grid; grid-template-columns: repeat(3,1fr); gap:10px;">
+        <div class="stat"><h3>المحاولات</h3><p id="stat-attempts">0</p></div>
+        <div class="stat"><h3>الصحيحة</h3><p id="stat-correct">0</p></div>
+        <div class="stat"><h3>الخاطئة</h3><p id="stat-wrong">0</p></div>
+      </div>
+      <div class="row" style="margin-top:10px;">
+        <button id="btn-reset" class="btn-danger">إعادة ضبط الملخص</button>
+        <button id="btn-save" class="btn-secondary">حفظ التقدم</button>
+        <button id="btn-load" class="btn-secondary">استعادة التقدم</button>
+      </div>
+
+      <h2 style="margin-top:18px;">مراجعة آخر ٥ أسئلة</h2>
+      <ul id="recent-list" class="list"></ul>
+
+      <h2 style="margin-top:18px;">مكتبة الدروس — الوحدة الثالثة</h2>
+      <div id="lesson-list"></div>
+      <p class="tiny">يتضمن مفاهيم: قيمة المنزلة، ضرب/قسمة كسور عشرية، وضع الفاصلة، التقدير، الأخطاء الشائعة.</p>
+    </aside>
+  </div>
+</main>
 
   <script>
 // الة حاسبة
