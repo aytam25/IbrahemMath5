@@ -173,8 +173,7 @@
           <button id="btn-hint" class="btn-accent">💡 تلميح</button>
           <button id="btn-explain" class="btn-accent">📘 الشرح خطوة بخطوة</button>
           <button id="btn-ai" class="btn-primary">🤖 اطلب الحل</button>
-        </div>
-<!-- آلة حاسبة خفيفة -->
+          <!-- آلة حاسبة خفيفة -->
 <section class="card">
   <h2>🧮 آلة حاسبة خفيفة</h2>
   <div class="row">
@@ -183,6 +182,7 @@
   </div>
   <p id="calc-result" class="feedback"></p>
 </section>
+        </div>
 
         <div id="problem" class="problem" aria-live="polite" style="margin-top:12px;">— اضغط "توليد تمرين جديد" —</div>
 
@@ -213,7 +213,7 @@
                 </select>
                 <select id="exam-source">
                   <option value="book">من الكتاب (٥٤–٦١)</option>
-                  <option value="free" selected>حر — أمثلة جديدة</option>
+                  <option value="free" selected>حر — أمثلة جديدة</optionال
                 </select>
                 <select id="exam-topic">
                   <option value="mix" selected>متنوع</option>
@@ -229,9 +229,10 @@
           <div id="exam-report" class="hint" hidden></div>
         </div>
       </section>
+
       <!-- ملخص الأداء + مراجعة + دروس -->
       <aside class="card">
-       <h2>ملخص الأداء</h2>
+        <h2>ملخص الأداء</h2>
         <div class="summary" style="display:grid; grid-template-columns: repeat(3,1fr); gap:10px;">
           <div class="stat"><h3>المحاولات</h3><p id="stat-attempts">0</p></div>
           <div class="stat"><h3>الصحيحة</h3><p id="stat-correct">0</p></div>
@@ -254,7 +255,7 @@
   </main>
 
   <script>
-// ألة حاسبة // أدوات الأرقام والتهيئة
+// الة حاسبة
     function calcEvaluate(){
   const expr = document.getElementById("calc-input").value;
   try {
